@@ -1,7 +1,7 @@
 from functions import *
 
 # setting up the database
-setup_database() # set to True if datatypes have already been created
+setup_database()  # set to True if datatypes have already been created
 populate_database()
 
 # This function is used when the museum buys a new artifact
