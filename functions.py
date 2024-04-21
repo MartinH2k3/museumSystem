@@ -146,6 +146,8 @@ def end_transport(artifact_name: str):
 
 
 def begin_inspection(artifact_name: str):
+    query = f"INSERT INTO Inspections (artifact_id, start_date, end_date) VALUES ((SELECT id FROM Artifacts WHERE LOWER(name) = LOWER('{artifact_name}')), CURRENT_DATE, CURRENT_DATE + (SELECT inspection_duration FROM Artifacts WHERE LOWER(name) = LOWER('{artifact_name}')));"
+    print("Creating entry for inspection: " + insert_query(query))
     query = f"UPDATE Artifacts SET status = 'being inspected' WHERE LOWER(name) = LOWER('{artifact_name}');"
     print("Artifact status update: " + insert_query(query))
 
@@ -167,8 +169,6 @@ def borrow_artifact(name: str, description: str, category: str, inspection_durat
 
 
 def receive_artifact(artifact_name: str):
-    query = f"INSERT INTO Inspections (artifact_id, start_date, end_date) VALUES ((SELECT id FROM Artifacts WHERE LOWER(name) = LOWER('{artifact_name}')), CURRENT_DATE, CURRENT_DATE + (SELECT inspection_duration FROM Artifacts WHERE LOWER(name) = LOWER('{artifact_name}')));"
-    print("Creating entry for inspection: " + insert_query(query))
     end_transport(artifact_name)
     begin_inspection(artifact_name)
 
@@ -187,7 +187,7 @@ def artifact_reclaimed_by_institution(artifact_name: str):
 
 
 def lend_artifact(artifact_name: str, borrowing_institution: str):
-    query = f"UPDATE Artifacts SET status = 'loaned' WHERE LOWER(name) = LOWER('{artifact_name}');"
+    query = f"UPDATE Artifacts SET status = 'loaned' WHERE LOWER(name) = LOWER('{artifact_name}') AND status = 'available';"
     print("Artifact status update: " + insert_query(query))
     query = f"INSERT INTO Loans (artifact_id, institution_id, type, start_date) VALUES " \
             f"((SELECT id FROM Artifacts WHERE LOWER(name) = LOWER('{artifact_name}')), " \
@@ -196,7 +196,6 @@ def lend_artifact(artifact_name: str, borrowing_institution: str):
 
 
 def receive_lent_artifact(artifact_name: str):
-    query = f"INSERT INTO Inspections (artifact_id, start_date, end_date) VALUES ((SELECT id FROM Artifacts WHERE LOWER(name) = LOWER('{artifact_name}')), CURRENT_DATE, CURRENT_DATE + (SELECT inspection_duration FROM Artifacts WHERE LOWER(name) = LOWER('{artifact_name}')));"
     print("Creating entry for inspection: " + insert_query(query))
     end_loan(artifact_name)
     begin_inspection(artifact_name)

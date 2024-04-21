@@ -14,3 +14,12 @@ insert_institution("Museum2", "Paris, France")
 # lending the artifact
 # This function consists of 2 steps: Setting the status of the artifact to "loaned" and creating a new loan entry
 lend_artifact("Star of India", "Museum2")
+# Passing non-existent artifacts or institutions will cause an error
+print("\nExample of an error due to constraints:")
+# Can't lend an artifact, that isn't at the museum's disposal
+lend_artifact("Star of India", "The Louvre")
+
+# getting the artifact back
+# This function consists of 3 steps: Ending the loan, setting the status of the artifact to "being inspected" and creating a new inspection entry
+receive_lent_artifact("Star of India")
+# Receiving an artifact that wasn't a part of a loan doesn't throw errors, but doesn't do anything
