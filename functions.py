@@ -196,40 +196,6 @@ def lend_artifact(artifact_name: str, borrowing_institution: str):
 
 
 def receive_lent_artifact(artifact_name: str):
-    print("Creating entry for inspection: " + insert_query(query))
     end_loan(artifact_name)
     begin_inspection(artifact_name)
 
-
-# # setting up the exhibition
-# initiate_exhibition("Exhibition 1", "First exhibition", "2024-06-05", "2024-06-30")
-# initiate_exhibition("Exhibition 2", "Second exhibition", "2024-07-05", "2024-07-30")
-# pick_area_for_exhibition("Main Hall", "Exhibition 1")
-# pick_area_for_exhibition("East Wing", "Exhibition 1")
-# pick_area_for_exhibition("West Wing", "Exhibition 1")
-# pick_area_for_exhibition("South Wing", "Exhibition 2")
-# pick_artifact_for_exhibition('Star of India', 'Exhibition 1', 'Main Hall')
-# update_exhibition_status("Exhibition 1", "prepared")
-# # cronjob()
-# update_exhibition_times("Exhibition 1", start_date="2024-05-04")
-
-#
-# # moving artifact between zones
-# move_artifact("Star of India", "East Wing", "Exhibition 1")
-#
-#
-# # borrowing artifacts from other institutions
-# # entry is created for the artifact, loan is created, transport is started
-# borrow_artifact("Chinatown monkey", "A monkey statue from Beijing", "Statue", "1 month", "Alice Smith", "2024-06-05")
-# # artifact is received, transport is ended, inspection is started
-# receive_artifact("Chinatown monkey")
-# # transport back is started
-# return_artifact_to_institution("Chinatown monkey")
-# # artifact is reclaimed by the institution, loan is ended, transport is ended
-# artifact_reclaimed_by_institution("Chinatown monkey")
-#
-#
-# # lending artifacts to other institutions, transport is started. Artifact is considered in transport the whole time it's loaned
-# lend_artifact("Star of India", "The British Museum")
-# # transport is ended, inspection is started
-# receive_artifact("Star of India")
